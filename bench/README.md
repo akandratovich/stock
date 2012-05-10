@@ -1,3 +1,3 @@
 node 2 node requests benchmark
 
-![Benchmark](./pic/excel.png)
+![Benchmark](https://github.com/kondratovich/stock/raw/master/bench/pic/excel.png)
