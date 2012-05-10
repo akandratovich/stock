@@ -1,0 +1,52 @@
+<head>
+  <title>Stocks</title>
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.20.custom.css" />
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css" />
+  <link rel="stylesheet" type="text/css" href="css/core.css" />
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+  <script type="text/javascript" src="js/highcharts.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+  <script type="text/javascript" src="js/graph.js"></script>
+  <script type="text/javascript" src="js/ws.js"></script>
+</head>
+<body>
+  <div id="back">
+    <div id="panel">
+      <a href="index.yaws"><span> => search</span></a>
+      <a href="store.yaws"><span> => store</span></a>
+      <span> => info</span>
+    </div>
+    <div id="right">
+      <input id="sfilter"/>
+      <table style="width: 100%;">
+        <col width="50%"></col>
+        <col width="50%"></col>
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">
+              <div id="slist">
+                <table id="info">
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+            <td style="vertical-align: top;">
+              <table id="infor">
+                <tbody>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="cpu" class="perf"></div>
+    <div id="mem" class="perf"></div>
+  </div>
+  <script type="text/javascript">
+    i_info();
+  </script>
+</body>

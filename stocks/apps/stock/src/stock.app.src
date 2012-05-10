@@ -1,0 +1,15 @@
+{application, stock,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  gproc,
+                  sasl,
+                  os_mon
+                 ]},
+  {mod, { stock_app, []}},
+  {env, []}
+ ]}.

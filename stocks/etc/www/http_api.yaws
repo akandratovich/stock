@@ -1,0 +1,116 @@
+<erl>
+  %% @author Andrew Kondratovich <andrew.kondratovich@gmail.com>
+  %% @doc YAWS Template. HTTP API code.
+  %%      This file contains functions to handle http requests.
+
+  -author('Andrew Kondratovich <andrew.kondratovich@gmail.com>').
+  -export([handle_message/1]).
+
+  %% parse required arguments for search request
+  parse_search_argv(Q) ->
+    Name = check_arg(lists:keysearch("name", 1, Q), ""),
+    {From, []} = string:to_integer(check_arg(lists:keysearch("from", 1, Q), "0")),
+    {To, []} = string:to_integer(check_arg(lists:keysearch("to", 1, Q), "0")),
+    {Scale, []} = string:to_integer(check_arg(lists:keysearch("scale", 1, Q), "0")),
+    {Name, From, To, Scale}.
+
+  check_arg({value, {_, V}}, _) ->
+    V;
+
+  check_arg(false, Default) ->
+    Default.
+
+  %% handler for `info` request
+  api_info(A) ->
+    Argv = yaws_api:parse_query(A),
+    Result = case check_arg(lists:keysearch("name", 1, Argv), undefined) of
+      undefined -> [];  %% woops
+      Name -> stock_api:info(Name) %% call general api method
+    end,
+    {content, "application/json; charset=utf-8", stock_util:to_json(Result)}.
+
+  %% get names of available stocks
+  api_names(A) -> {content, "application/json; charset=utf-8", stock_util:to_json(stock_api:names())}.
+
+  %% transform proplist of json data to tuple
+  proplist_to_tuple(PL) ->
+    {
+      proplists:get_value(<<"time">>, PL),
+      proplists:get_value(<<"price">>, PL),
+      proplists:get_value(<<"volume">>, PL)
+    }.
+
+  %% handler for store requests
+  api_store(A) ->
+    {ok, R} = yaws_api:postvar(A, "data"), %% get json string of data
+    {ok, Name} = yaws_api:postvar(A, "name"), %% name of stock
+    Raw = mochijson2:decode(R, [{format, proplist}]), %% decode json
+    stock_api:store(Name, lists:map(fun proplist_to_tuple/1, Raw)), %% call general api method
+    {content, "application/json; charset=utf-8", "ok"}.
+
+  %% remove specified stock from system
+  api_erase(A) ->
+    {ok, Name} = yaws_api:postvar(A, "name"),
+    stock_api:erase(Name),
+    {content, "application/json; charset=utf-8", "ok"}.
+
+  %% search request
+  api_search(A) ->
+    Argv = yaws_api:parse_query(A),
+    case parse_search_argv(Argv) of %% get pack of parameters
+      {Name, From, To, Scale} ->
+        Raw = stock_api:select(Name, From, To, Scale), %% get data
+        R = stock_util:prettify(Raw), %% prepare for json
+        {content, "application/json; charset=utf-8", stock_util:to_json(R)}; %% send back
+      _ ->
+        {content, "application/json; charset=utf-8", "error"}
+    end.
+
+  %% Web Socket handler. Used only in performance chart.
+  %% WebSocket support api in yaws changes sometimes.
+  %% And sometimes it doesn't work anymore -_-
+  handle_message(_) ->
+    {Cpu, Mem, Now} = stock_api:perf(),
+    R = stock_util:to_json([{cpu, Cpu}, {mem, Mem}, {now, Now}]),
+    {reply, {text, R}}.
+
+  %% start ws handler
+  api_ws_perf(A) ->
+    {websocket, ?MODULE, []}.
+
+  %% select api from get requests
+  do_get(A) ->
+    Argv = yaws_api:parse_query(A),
+    case check_arg(lists:keysearch("api", 1, Argv), undefined) of
+      "search" -> api_search(A);
+      "info" -> api_info(A);
+      "names" -> api_names(A);
+      "ws_perf" -> api_ws_perf(A);
+      _ -> {content, "application/json; charset=utf-8", "{'error': 404}"}
+    end.
+
+  %% select api from post requests
+  do_post(A) ->
+    case yaws_api:postvar(A, "api") of
+      {ok, Api} ->
+        case Api of
+          "store" -> api_store(A);
+          "erase" -> api_erase(A);
+          _ -> {content, "application/json; charset=utf-8", "{'error': 404}"}
+        end;
+      _ -> {content, "application/json; charset=utf-8", "{'error': 404}"}
+    end.
+
+  out(#arg{req = Req} = A) ->
+    try
+      {http_request, Method, _, _} = Req,
+      case Method of
+        'GET'  -> do_get(A);
+        'POST' -> do_post(A)
+      end
+    catch
+      _: Reason ->
+        error_logger:error_report(Reason),
+        {content, "application/json; charset=utf-8", "error"}
+    end.
+</erl>

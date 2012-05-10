@@ -1,0 +1,111 @@
+<head>
+  <title>Stocks</title>
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.20.custom.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css">
+  <link rel="stylesheet" type="text/css" href="css/core.css">
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script><style type="text/css"></style>
+  <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+</head>
+<body>
+  <div id="back">
+    <div id="panel">
+      <a href="index.yaws"><span> => search</span></a>
+      <span> => store</span>
+      <a href="info.yaws"><span> => info</span></a>
+    </div>
+    <div id="top">
+      <table id="legend">
+        <tbody>
+          <tr>
+            <td colspan="2">Generation Settings</td>
+          </tr>
+          <tr>
+            <td><span>Name:</span></td>
+            <td><input type="text" id="gname" value="ECHO"></td>
+          </tr>
+          <tr>
+            <td><span>Time</span></td>
+          </tr>
+          <tr>
+            <td><span>From:</span></td>
+            <td><input type="text" id="gtfrom"></td>
+          </tr>
+          <tr>
+            <td><span>To:</span></td>
+            <td><input type="text" id="gtto"></td>
+          </tr>
+          <tr>
+            <td><span>Price</span></td>
+          </tr>
+          <tr>
+            <td><span>From:</span></td>
+            <td><input type="text" id="gpfrom" value="1.00"></td>
+          </tr>
+          <tr>
+            <td><span>To:</span></td>
+            <td><input type="text" id="gpto" value="6.00"></td>
+          </tr>
+          <tr>
+            <td><span>Amount</span></td>
+          </tr>
+          <tr>
+            <td><span>From:</span></td>
+            <td><input type="text" id="gafrom" value="0"></td>
+          </tr>
+          <tr>
+            <td><span>To:</span></td>
+            <td><input type="text" id="gato" value="5000"></td>
+          </tr>
+          <tr>
+            <td><span>Count:</span></td>
+            <td><input type="text" id="gcount" value="50"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><a href="#" id="generate">Show</a></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><a href="#" id="save">Save</a></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span class="tip-show">`Show` - generate random data and display it. You can edit and save it after.</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span class="tip-show">`Send` - generate random data and send it without displaying.</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span class="tip">* You can edit values by doubleclick.</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="left">
+      <table id="data" style="display: none; ">
+        <colgroup><col width="30%">
+        <col width="30%">
+        <col width="30%">
+        </colgroup><tbody>
+          <tr class="head">
+            <td><span>Time:</span></td>
+            <td style="width: 80px;"><span>Price:</span></td>
+            <td style="width: 80px;"><span>Amount:</span></td>
+            <!-- <td><a href="#" id="save">Save</a></td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript">
+    i_generation();
+  </script>
+</body>

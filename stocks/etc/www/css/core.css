@@ -1,0 +1,136 @@
+body {
+  font-size: 12px;
+  font-family: monospace;
+}
+
+input, select {
+  font-family: monospace;
+}
+
+#back {
+  width: 1200px;
+  margin: auto;
+}
+
+#right {
+  width: 60%;
+  margin-left: 20%;
+  height: 240px;
+}
+
+#left {
+  width: 60%;
+  float: left;
+}
+
+#top {
+  width: 20%;
+  float: left;
+}
+
+#data {
+  display: none;
+}
+
+#data td, #result td {
+  text-align: right;
+}
+
+#data, #search {
+  width: 100%;
+}
+
+#legend input, #search input, #search select {
+  width: 100%;
+}
+
+#find, #generate, #save {
+  float: right;
+}
+
+#result {
+  width: 100%;
+  margin-top: 10px;
+  display: none;
+}
+
+#result th {
+  font-weight: normal;
+}
+
+#result tr {
+  text-align: left;
+}
+
+.price0, .amount0 {
+  width: 80px !important;
+}
+
+span.tip {
+  display: none;
+  color: gray;
+}
+
+span.tip-show {
+  color: gray;
+}
+
+#legend {
+  width: 100%;
+}
+
+#panel {
+  margin-left: 20%;
+  margin-bottom: 30px;
+}
+
+#panel span {
+  margin-right: 30px;
+}
+
+#panel > span {
+  color: gray;
+}
+
+#slist {
+  /*width: 50%;*/
+  /*float: left;*/
+  overflow: auto;
+  height: 220px;
+}
+
+#info {
+  width: 100%;
+}
+
+#sfilter {
+  /*display: none;*/
+}
+
+#infor {
+  width: 100%;
+  /*float: right;*/
+
+  display: none;
+}
+
+#info tr:hover span.ninfo {
+  border-bottom: 1px dotted gray;
+}
+
+#stock {
+  display: none;
+}
+
+#info tr {
+  cursor: pointer;
+}
+
+.perf {
+  display: none;
+  margin: auto;
+  margin-top: 20px;
+  width: 60%;
+
+  height: 200px;
+}

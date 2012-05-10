@@ -1,0 +1,74 @@
+<head>
+  <title>Stocks</title>
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.20.custom.css" />
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-timepicker-addon.css" />
+  <link rel="stylesheet" type="text/css" href="css/core.css" />
+  <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+  <script type="text/javascript" src="js/highstock.js"></script>
+  <script type="text/javascript" src="js/graph.js"></script>
+</head>
+<body>
+  <div id="back">
+    <div id="panel">
+      <span> => search</span>
+      <a href="store.yaws"><span> => store</span></a>
+      <a href="info.yaws"><span> => info</span></a>
+    </div>
+    <div id="right">
+      <table id="search">
+        <tbody>
+          <tr>
+            <td><span>Name:</span></td>
+            <td><span>From:</span></td>
+            <td><span>To:</span></td>
+            <td><span>Scale:</span></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="name"></td>
+            <td><input type="text" id="from"></td>
+            <td><input type="text" id="to"></td>
+            <td>
+              <select id="scale">
+                <option value=0>Minute</option>
+                <option value=1 selected>Hour</option>
+                <option value=2>Day</option>
+                <option value=3>Week</option>
+                <option value=4>Month</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a id="find" href="#"><span>Find</span></a>
+
+      <div id="stock">
+        <a id="showg" href="#"><span>Toggle chart</span></a>
+        <div id="stockdiv"></div>
+      </div>
+
+      <table id="result">
+        <tbody>
+          <tr class="head">
+            <td><span>From</span></td>
+            <td><span>Start price</span></td>
+            <td><span>End Price</span></td>
+            <td><span>Min price</span></td>
+            <td><span>Max price</span></td>
+            <td><span>Amount</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var name = query_param('name');
+    if (name != "") $('#name').val(name);
+    i_timepicker($('#from'), $('#to'));
+    i_bind();
+    // i_save();
+    // i_generation();
+  </script>
+</body>
