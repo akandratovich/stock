@@ -5,7 +5,7 @@
 %%      For large amount of stocks and uniform
 %%      load all cores will be in use.
 %%      This worker handles premerged ohlc data
-%%      for minutes.In worst case for `month` scale
+%%      for minutes. In worst case for `month` scale
 %%      for one month we need 60 * 24 * 30 (31) values.
 %%      Also, selection is about 100 times faster than
 %%      to_string self-encoding T_T
