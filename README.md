@@ -1,2 +1,2 @@
-stocks - application
-bench - benchmark script
+`stocks` - application  
+`bench` - benchmark script  
