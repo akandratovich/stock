@@ -1,4 +1,5 @@
 .eunit
+.bench
 deps
 priv
 *.o

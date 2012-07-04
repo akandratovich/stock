@@ -1,10 +1,11 @@
 %% @author Andrew Kondratovich <andrew.kondratovich@gmail.com>
 %% @doc ETS Manager. Used to save tables in case of process error.
 %%
+%% used from:
 %% http://steve.vinoski.net/blog/2011/03/23/dont-lose-your-ets-tables/
+%% http://hlabs.org/news/rescue_ets_data.html .
 
 -module(ets_manager).
--author('Andrew Kondratovich <andrew.kondratovich@gmail.com>').
 
 -behaviour(gen_server).
 -export([start/0, new/2]).
