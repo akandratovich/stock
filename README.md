@@ -1,2 +1,1 @@
-`stocks` - application  
-`bench` - benchmark script  
+https://github.com/kondratovich/stock/blob/master/stocks/README.md
